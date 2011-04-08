@@ -29,15 +29,15 @@ public class ForkJoinQuicksortTask extends RecursiveAction {
             Arrays.sort(a, left, right + 1);
         } else {
             int pivotIndex = partition(a, left, right);
-            ForkJoinTask firstPart = null;
+            ForkJoinTask t1 = null;
 
             if (left < pivotIndex)
-                firstPart = new ForkJoinQuicksortTask(a, left, pivotIndex).fork();
+                t1 = new ForkJoinQuicksortTask(a, left, pivotIndex).fork();
             if (pivotIndex + 1 < right)
                  new ForkJoinQuicksortTask(a, pivotIndex + 1, right).invoke();
 
-            if (firstPart != null)
-                firstPart.join();
+            if (t1 != null)
+                t1.join();
         }
     }
 }
