@@ -34,7 +34,7 @@ public class ForkJoinQuicksortTask extends RecursiveAction {
             if (left < pivotIndex)
                 t1 = new ForkJoinQuicksortTask(a, left, pivotIndex).fork();
             if (pivotIndex + 1 < right)
-                 new ForkJoinQuicksortTask(a, pivotIndex + 1, right).invoke();
+                new ForkJoinQuicksortTask(a, pivotIndex + 1, right).invoke();
 
             if (t1 != null)
                 t1.join();
