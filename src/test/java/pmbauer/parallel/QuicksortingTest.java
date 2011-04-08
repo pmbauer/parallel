@@ -15,7 +15,7 @@ public class QuicksortingTest {
 
     static {
         int[] smallSorted = SortTestUtils.randomArray(0x400);
-        int[] smallReverseSorted = SortTestUtils.reverse(smallSorted.clone());
+        Arrays.sort(smallSorted);
 
         masters = new ArrayList<>();
 
@@ -23,7 +23,7 @@ public class QuicksortingTest {
         masters.add(new SortFixture("Empty", new int[] {}));
         masters.add(new SortFixture("Small Random", SortTestUtils.randomArray(0x400)));
         masters.add(new SortFixture("Small Sorted", smallSorted));
-        masters.add(new SortFixture("Small Reverse-Sorted", smallReverseSorted));
+        masters.add(new SortFixture("Small Reverse-Sorted", SortTestUtils.reverse(smallSorted.clone())));
 
         // @ 4 bytes/integer, 64MB of data - use jvm arg -Xmx256
         masters.add(new SortFixture("Large Random", SortTestUtils.randomArray(0x1000000)));
