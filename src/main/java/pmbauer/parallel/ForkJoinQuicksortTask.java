@@ -1,8 +1,7 @@
 package pmbauer.parallel;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 
 import static pmbauer.parallel.Quicksort.partition;
@@ -30,15 +29,15 @@ public class ForkJoinQuicksortTask extends RecursiveAction {
             Arrays.sort(a, left, right + 1);
         } else {
             int pivotIndex = partition(a, left, right);
-
-            List<ForkJoinQuicksortTask> parts = new LinkedList<>();
+            ForkJoinTask firstPart = null;
 
             if (left < pivotIndex)
-                parts.add(new ForkJoinQuicksortTask(a, left, pivotIndex));
+                firstPart = new ForkJoinQuicksortTask(a, left, pivotIndex).fork();
             if (pivotIndex + 1 < right)
-                parts.add(new ForkJoinQuicksortTask(a, pivotIndex + 1, right));
+                 new ForkJoinQuicksortTask(a, pivotIndex + 1, right).invoke();
 
-            invokeAll(parts);
+            if (firstPart != null)
+                firstPart.join();
         }
     }
 }
