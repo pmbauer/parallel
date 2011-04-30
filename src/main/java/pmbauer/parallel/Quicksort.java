@@ -5,6 +5,12 @@ import java.util.concurrent.ForkJoinPool;
 
 public class Quicksort {
 
+    /**
+     * Convenience method.  Invokes a LatchQuickSortTask in the provided pool, blocking until done.
+     * @param pool
+     * @param a
+     * @return sorted array
+     */
     public static int[] latchQuicksort(ExecutorService pool, int[] a) throws InterruptedException {
         LatchQuicksortTask sortingTask = new LatchQuicksortTask(a, pool);
 
@@ -14,6 +20,12 @@ public class Quicksort {
         return a;
     }
 
+    /**
+     * Convenience method.  Invokes a ForkJoinQuickSortTask in the provided pool, blocking until done.
+     * @param pool
+     * @param a
+     * @return sorted array
+     */
     public static int[] forkJoinQuicksort(ForkJoinPool pool, int[] a) {
         pool.invoke(new ForkJoinQuicksortTask(a));
         return a;
