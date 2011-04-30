@@ -4,8 +4,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>pmbauer-parallel</groupId>
-    <artifactId>pmbauer-parallel-core</artifactId>
+    <groupId>pmbauer</groupId>
+    <artifactId>parallel-core</artifactId>
     <name>Parallel Core</name>
     <version>0.1</version>
     <packaging>jar</packaging>
