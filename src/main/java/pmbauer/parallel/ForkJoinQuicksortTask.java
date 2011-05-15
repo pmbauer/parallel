@@ -25,7 +25,7 @@ public class ForkJoinQuicksortTask extends RecursiveAction {
 
     @Override
     protected void compute() {
-        if (right - left < SERIAL_THRESHOLD) {
+        if (serialThresholdMet()) {
             Arrays.sort(a, left, right + 1);
         } else {
             int pivotIndex = partition(a, left, right);
@@ -39,5 +39,9 @@ public class ForkJoinQuicksortTask extends RecursiveAction {
             if (t1 != null)
                 t1.join();
         }
+    }
+
+    private boolean serialThresholdMet() {
+        return right - left < SERIAL_THRESHOLD;
     }
 }
