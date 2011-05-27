@@ -93,12 +93,23 @@ public class LatchQuicksortTask implements Runnable {
             sortedCount = right - left + 1;
         } else {
             pivotIndex = partition(a, left, right);
-            sortedCount = (left == pivotIndex || right == pivotIndex + 1) ? 1 : 0;
+            sortedCount = countSortedBoundaryValues(left, right, pivotIndex);
         }
 
         latch.countDown(sortedCount);
 
         return pivotIndex;
+    }
+
+    /*
+     * When left == pivotIndex, then a[left] is its sorted position.
+     * When right == pivotIndex + 1, then a[right] is in its sorted position.
+     *
+     * As long as serialThreshold is guaranteed > 2, these two conditions are mutually exclusive.
+     * Therefore, we can gain a minor efficiency and avoid an extra branch for each case.
+     */
+    private int countSortedBoundaryValues(int left, int right, int pivotIndex) {
+        return (left == pivotIndex || right == pivotIndex + 1) ? 1 : 0;
     }
 
     private boolean serialThresholdMet(int left, int right) {

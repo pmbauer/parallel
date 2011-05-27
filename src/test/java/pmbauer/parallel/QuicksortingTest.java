@@ -25,7 +25,7 @@ public class QuicksortingTest {
         masters.add(new SortFixture("Small Sorted", smallSorted));
         masters.add(new SortFixture("Small Reverse-Sorted", SortTestUtils.reverse(smallSorted.clone())));
 
-        // @ 4 bytes/integer, 64MB of data - use jvm arg -Xmx256
+        // @ 4 bytes/integer, 64MB of data - use jvm arg -Xmx256m
         masters.add(new SortFixture("Large Random", SortTestUtils.randomArray(0x1000000)));
 
         //@ 4 bytes/integer, 512MB of data - use jvm arg -Xmx2048m
